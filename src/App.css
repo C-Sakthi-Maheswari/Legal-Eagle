@@ -45,6 +45,13 @@
   border-radius: 10px;
   transition: all 0.3s ease;
   cursor: pointer;
+  text-decoration: none; /* Remove underline */
+}
+
+/* Remove underline for links within option cards */
+.option-card a {
+  text-decoration: none; /* Remove underline for links */
+  color: inherit; /* Inherit color from parent */
 }
 
 .option-card h2 {

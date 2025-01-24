@@ -19,7 +19,7 @@ function App() {
         <main className="App-main">
           <div className="options">
             <div className="option-card">
-              <Link to="/text-translation">
+              <Link to="/text-recognition">
                 <h2>Text Recognition & Simplification</h2>
                 <p>Recognize and simplify complex legal documents with ease.</p>
               </Link>
