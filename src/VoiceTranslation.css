@@ -1,0 +1,36 @@
+/* VoiceTranslation.css */
+.VoiceTranslation {
+    background-color: #fff; /* White background */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Georgia', serif; /* Vintage serif font */
+  }
+  
+  .VoiceTranslation h2 {
+    font-size: 2.5em;
+    color: #e67e22; /* Vintage orange for headings */
+    margin-bottom: 20px;
+  }
+  
+  .VoiceTranslation p {
+    font-size: 1.2em;
+    color: #4b4b4b;
+    line-height: 1.6;
+  }
+  
+  button {
+    background-color: #e67e22; /* Orange background */
+    color: #fff; /* White text */
+    font-size: 1.2em;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #f39c42; /* Darker orange on hover */
+  }
+  

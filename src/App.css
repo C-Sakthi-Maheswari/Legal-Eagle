@@ -1,147 +1,91 @@
-/* General App Styling */
+/* Global Styles for Vintage Feel */
 body {
+  font-family: 'Georgia', 'Times New Roman', serif; /* Vintage serif font */
+  background-color: #f7e7d4; /* Light beige background for vintage look */
+  color: #4b4b4b; /* Dark grey text for readability */
   margin: 0;
-  font-family: 'Cormorant Garamond', serif; /* Vintage-style font */
-  background-color: #fdf5e6; /* Light parchment base */
-  color: #4b2e2e; /* Dark vintage brown for text */
-  background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png'); /* Subtle vintage texture */
-  background-size: cover;
-  background-attachment: fixed;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App {
-  text-align: center;
-  padding: 2rem;
-}
-
-/* Header Styling */
 .App-header {
-  background-color: rgba(255, 255, 224, 0.9); /* Light yellow parchment overlay */
-  padding: 3rem 1rem;
-  border: 2px solid #d2b48c; /* Tan border */
-  border-radius: 15px;
-  margin-bottom: 2rem;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  background-color: #f1c27d; /* Warm vintage orange for the header */
+  color: #4b4b4b; /* Dark grey text */
+  text-align: center;
+  padding: 40px 20px;
+  font-family: 'Georgia', serif;
+  border-bottom: 5px solid #f39c42; /* Slightly darker orange border for contrast */
 }
 
 .App-header h1 {
-  font-size: 3rem;
-  margin: 0;
-  color: #4b2e2e; /* Dark brown */
-  text-shadow: 2px 2px #d2b48c; /* Soft shadow for vintage effect */
+  font-size: 3em;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #e67e22; /* Vibrant orange */
 }
 
 .App-header p {
-  font-size: 1.2rem;
-  font-weight: 300;
-  margin-top: 0.5rem;
-  color: #5e4c4c;
-  font-style: italic;
+  font-size: 1.2em;
+  margin-top: 10px;
 }
 
-/* Main Content Styling */
 .App-main {
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 50px 20px;
+  text-align: center;
 }
 
 .options {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid layout */
+  gap: 30px;
+  justify-content: center;
 }
 
 .option-card {
-  background-color: rgba(255, 255, 224, 0.9); /* Vintage parchment background */
-  border: 2px solid #d2b48c; /* Tan border for cards */
-  border-radius: 12px;
-  padding: 1.5rem;
-  text-align: center;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s;
+  background-color: #fff; /* White background for cards */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
 }
 
 .option-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 10px #f9aa33; /* Adds glow effect */
-  background-color: #f9aa33; /* Light golden background */
-  color: #ffffff; /* Change text to white for contrast */
-}
-
-.option-card:active {
-  transform: translateY(0); /* Subtle press effect */
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), 0 0 8px #f4a261; /* Glow when pressed */
+  transform: translateY(-5px); /* Hover effect for the cards */
 }
 
 .option-card h2 {
-  font-size: 1.6rem;
-  color: #4b2e2e;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-  text-shadow: 1px 1px #d2b48c;
-  transition: color 0.3s;
-}
-
-.option-card:hover h2 {
-  color: #ffffff; /* Change to white when glowing */
+  font-size: 1.8em;
+  color: #e67e22; /* Orange color for headings */
+  margin-bottom: 15px;
 }
 
 .option-card p {
-  font-size: 1rem;
-  color: #5e4c4c;
-  margin-top: 0.5rem;
-  font-style: italic;
-  transition: color 0.3s;
+  font-size: 1.1em;
+  line-height: 1.5;
 }
 
-.option-card:hover p {
-  color: #eeeeee; /* Light text on hover */
+button {
+  background-color: #e67e22; /* Orange background for buttons */
+  color: #fff; /* White text */
+  font-size: 1.2em;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 15px;
 }
 
-/* Footer Styling */
+button:hover {
+  background-color: #f39c42; /* Slightly darker orange when hovering */
+}
+
 .App-footer {
-  background-color: rgba(255, 255, 224, 0.9); /* Parchment-like footer */
-  color: #4b2e2e;
+  background-color: #f1c27d; /* Same warm vintage orange for footer */
+  color: #4b4b4b;
   text-align: center;
-  padding: 1rem;
-  font-size: 0.9rem;
-  margin-top: 2rem;
-  border: 2px solid #d2b48c;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Vintage Animation */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.App-header,
-.App-footer,
-.option-card {
-  animation: fadeInUp 1.2s ease-out;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .App-header h1 {
-    font-size: 2.5rem;
-  }
-
-  .App-header p {
-    font-size: 1rem;
-  }
-
-  .option-card {
-    padding: 1rem;
-  }
+  padding: 20px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }
