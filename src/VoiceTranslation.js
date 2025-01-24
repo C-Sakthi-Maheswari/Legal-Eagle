@@ -1,4 +1,5 @@
 import React from 'react';
+import './VoiceTranslation.css';
 
 function VoiceTranslation() {
   return (

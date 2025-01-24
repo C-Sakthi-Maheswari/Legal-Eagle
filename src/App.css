@@ -1,91 +1,74 @@
-/* Global Styles for Vintage Feel */
-body {
-  font-family: 'Georgia', 'Times New Roman', serif; /* Vintage serif font */
-  background-color: #f7e7d4; /* Light beige background for vintage look */
-  color: #4b4b4b; /* Dark grey text for readability */
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* App.css */
+.App {
+  font-family: 'Arial', sans-serif;
 }
 
 .App-header {
-  background-color: #f1c27d; /* Warm vintage orange for the header */
-  color: #4b4b4b; /* Dark grey text */
   text-align: center;
-  padding: 40px 20px;
-  font-family: 'Georgia', serif;
-  border-bottom: 5px solid #f39c42; /* Slightly darker orange border for contrast */
+  background-color: #3e2723;
+  color: #f4f1e1;
+  padding: 20px;
 }
 
 .App-header h1 {
-  font-size: 3em;
-  font-weight: bold;
-  letter-spacing: 2px;
-  color: #e67e22; /* Vibrant orange */
+  font-size: 2.5rem;
 }
 
 .App-header p {
-  font-size: 1.2em;
-  margin-top: 10px;
+  font-size: 1.2rem;
 }
 
 .App-main {
-  padding: 50px 20px;
-  text-align: center;
+  padding: 20px;
+  background-color: #f4f1e1;
 }
 
 .options {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid layout */
-  gap: 30px;
-  justify-content: center;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .option-card {
-  background-color: #fff; /* White background for cards */
+  background-color: #9e7d5e;
+  color: #f4f1e1;
   padding: 20px;
+  width: 250px;
+  height: 250px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
-}
-
-.option-card:hover {
-  transform: translateY(-5px); /* Hover effect for the cards */
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .option-card h2 {
-  font-size: 1.8em;
-  color: #e67e22; /* Orange color for headings */
-  margin-bottom: 15px;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
 }
 
 .option-card p {
-  font-size: 1.1em;
-  line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1.4;
 }
 
-button {
-  background-color: #e67e22; /* Orange background for buttons */
-  color: #fff; /* White text */
-  font-size: 1.2em;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 15px;
+/* Hover effect */
+.option-card:hover {
+  background-color: #f4f1e1;
+  color: #9e7d5e;
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-button:hover {
-  background-color: #f39c42; /* Slightly darker orange when hovering */
+.option-card:hover h2 {
+  color: #9e7d5e;
 }
 
-.App-footer {
-  background-color: #f1c27d; /* Same warm vintage orange for footer */
-  color: #4b4b4b;
-  text-align: center;
-  padding: 20px;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
+.option-card:hover p {
+  color: #3e2723;
 }

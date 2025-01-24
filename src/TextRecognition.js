@@ -1,4 +1,6 @@
 import React from 'react';
+import './TextRecognition.css';
+
 
 function TextRecognition() {
   return (

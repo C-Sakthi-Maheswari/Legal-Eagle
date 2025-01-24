@@ -1,4 +1,5 @@
 import React from 'react';
+import './HistoricalManuscripts.css';
 
 function HistoricalManuscripts() {
   return (
