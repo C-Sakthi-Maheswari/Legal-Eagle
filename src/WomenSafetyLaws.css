@@ -1,31 +1,115 @@
-/* WomenSafety.css */
-.women-safety-page {
-  background-color: #f4f1e1;
+/* WomenSafetyLaws.css */
+
+/* Root body styling for the app */
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #fff8e1; /* Light yellow background */
+  margin: 0;
+  padding: 0;
+  color: #5a5a5a; /* Neutral text color for readability */
+}
+
+/* Component Container */
+div {
+  max-width: 800px;
+  margin: 20px auto;
   padding: 20px;
-  color: #3e2723;
+  background-color: #fffde7; /* Subtle yellow background */
+  border: 2px solid #ffcc80; /* Soft orange border */
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 
-.women-safety-page h2 {
+/* Headings */
+h2 {
   font-size: 2rem;
-  color: #9e7d5e;
+  text-align: center;
+  color: #f57c00; /* Vibrant orange for main headings */
+  margin-bottom: 15px;
 }
 
-.women-safety-page p {
-  font-size: 1.2rem;
-  color: #3e2723;
-  line-height: 1.6;
+h3 {
+  font-size: 1.5rem;
+  color: #ff8f00; /* Medium orange for subheadings */
+  margin-bottom: 10px;
 }
 
-.women-safety-page button {
-  background-color: #9e7d5e;
-  color: #f4f1e1;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1.1rem;
+/* Button styling for expandable sections */
+button {
+  width: 100%;
+  text-align: left;
+  background-color: #fff9c4; /* Pale yellow */
+  border: 1px solid #ffc107; /* Bright yellow border */
+  color: #e65100; /* Dark orange text */
+  font-size: 1rem;
+  padding: 12px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.3s ease; /* Smooth hover effect */
 }
 
-.women-safety-page button:hover {
-  background-color: #3e2723;
+button:hover {
+  background-color: #ffe082; /* Brighter yellow for hover */
+  border-color: #ffca28; /* Brighter yellow border */
+  color: #bf360c; /* Darker orange text on hover */
+}
+
+/* Description box for expanded sections */
+p {
+  background-color: #fff3e0; /* Light orange */
+  border: 1px solid #ffcc80; /* Soft orange border */
+  padding: 12px;
+  color: #5d4037; /* Warm dark brown text */
+  border-radius: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  line-height: 1.5; /* Improved readability */
+}
+
+/* Helpline List */
+ul {
+  list-style: none; /* Remove bullets */
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffecb3; /* Light yellow for helpline cards */
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  border: 1px solid #ffd54f; /* Yellow border for separation */
+  color: #6d4c41; /* Warm brown text for clarity */
+  transition: background-color 0.3s ease;
+}
+
+li:hover {
+  background-color: #ffca28; /* Bright yellow for hover effect */
+  color: #3e2723; /* Darker text for hover */
+}
+
+/* Small screen responsive adjustments */
+@media (max-width: 768px) {
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  li {
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 0.9rem;
+  }
 }
