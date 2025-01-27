@@ -29,3 +29,7 @@
 .translation-page button:hover {
   background-color: #3e2723;
 }
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
