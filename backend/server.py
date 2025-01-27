@@ -13,7 +13,7 @@ pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'  # Adjust as necess
 
 
 API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
-headers = {"Authorization": "Bearer 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"}
+headers = {"Authorization": "Bearer "}
 
 
 
