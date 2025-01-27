@@ -1,4 +1,4 @@
-///import React from 'react';
+import React,{ useState, useEffect } from 'react';
 import './TextRecognition.css';
 
 
@@ -12,23 +12,57 @@ import './TextRecognition.css';
 // }
 
 // export default TextRecognition;
-import React, { useState } from 'react';
+
 
 const TextRecognition = () => {
   const [file, setFile] = useState(null);
   const [text, setText] = useState('');
 
+
+  useEffect(() => {
+    fetch('/members') // Adjust URL as per your backend
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);// Assuming your backend sends { "members": [...] }
+      })
+      .catch((error) => console.error('Error fetching data:', error));
+  }, []);
+
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
+    
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+
     e.preventDefault();
-    // For now, just simulate some extracted text
-    if (file) {
-      setText('Simulated extracted text from the PDF: \nLorem ipsum dolor sit amet, consectetur adipiscing elit.');
-    } else {
+    if (!file) {
       setText('No file selected.');
+      return;
+    }
+
+    // Create a FormData object to send the file to the backend
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      // Send the file to the backend (replace with your actual backend URL)
+      const response = await fetch('/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      // Handle the response from the backend
+      const data = await response.json();
+
+      if (response.ok) {
+        setText(data.extracted_text);  // Display the extracted text
+      } else {
+        setText('Error extracting text.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setText('Error uploading file.');
     }
   };
 
