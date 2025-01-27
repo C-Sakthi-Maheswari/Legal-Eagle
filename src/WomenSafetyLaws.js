@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import './WomenSafetyLaws.css';
+import "./WomenSafetyLaws.css";
 
 const WomenSafetyLaws = () => {
   const [expanded, setExpanded] = useState(null);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [inputMessage, setInputMessage] = useState("");
 
   const laws = [
     {
@@ -11,7 +14,8 @@ const WomenSafetyLaws = () => {
         "This law ensures protection for women from physical, emotional, sexual, or economic abuse at home.",
     },
     {
-      title: "Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013",
+      title:
+        "Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013",
       description:
         "A comprehensive law to protect women from harassment at their workplace.",
     },
@@ -22,59 +26,78 @@ const WomenSafetyLaws = () => {
     },
   ];
 
-  const helplines = [
-    { name: "National Women’s Helpline", number: "181" },
-    { name: "Police Emergency", number: "100" },
-    { name: "Women Helpline (Domestic Abuse)", number: "1091" },
-  ];
-
   const toggleExpand = (index) => {
     setExpanded(expanded === index ? null : index);
   };
 
-  return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6">
-        <h2 className="text-2xl font-bold mb-4 text-blue-600">Women Safety Laws & Resources</h2>
-        <p className="text-gray-700 mb-6">
-          Access essential laws, resources, and helplines to ensure your safety and rights.
-        </p>
+  const toggleChat = () => {
+    setChatOpen(!chatOpen);
+  };
 
-        {/* Laws Section */}
-        <div>
-          <h3 className="text-xl font-semibold text-blue-500 mb-4">Important Laws</h3>
+  const handleSendMessage = () => {
+    if (inputMessage.trim() === "") return;
+
+    // Add user's message to the chat
+    const userMessage = { sender: "user", text: inputMessage };
+    setMessages((prev) => [...prev, userMessage]);
+
+    // Simulate bot response
+    setTimeout(() => {
+      const botMessage = {
+        sender: "bot",
+        text: `You asked: "${inputMessage}". Let me find the best legal advice for you.`,
+      };
+      setMessages((prev) => [...prev, botMessage]);
+    }, 1000);
+
+    setInputMessage(""); // Clear input
+  };
+
+  return (
+    <div className="container">
+      {/* Women Safety Laws Section */}
+      <div className="laws-section">
+        <h2>Women Safety Laws</h2>
+        <p>Access essential laws and resources for women’s safety.</p>
+        <div className="laws">
           {laws.map((law, index) => (
-            <div key={index} className="mb-4">
-              <button
-                className="w-full text-left bg-gray-100 p-3 rounded-lg hover:bg-gray-200"
-                onClick={() => toggleExpand(index)}
-              >
-                <span className="font-medium">{law.title}</span>
+            <div key={index} className="law-item">
+              <button className="law-title" onClick={() => toggleExpand(index)}>
+                {law.title}
               </button>
               {expanded === index && (
-                <p className="p-3 text-gray-600 border border-t-0 rounded-b-lg">
-                  {law.description}
-                </p>
+                <p className="law-description">{law.description}</p>
               )}
             </div>
           ))}
         </div>
+      </div>
 
-        {/* Helplines Section */}
-        <div className="mt-8">
-          <h3 className="text-xl font-semibold text-blue-500 mb-4">Emergency Helplines</h3>
-          <ul>
-            {helplines.map((helpline, index) => (
-              <li
-                key={index}
-                className="flex justify-between items-center p-3 bg-gray-100 rounded-lg mb-2 hover:bg-gray-200"
-              >
-                <span>{helpline.name}</span>
-                <span className="font-bold text-blue-600">{helpline.number}</span>
-              </li>
-            ))}
-          </ul>
+      {/* Chatbot Widget */}
+      <div className={`chatbot-widget ${chatOpen ? "open" : ""}`}>
+        <div className="chatbot-header" onClick={toggleChat}>
+          {chatOpen ? "Close Chatbot" : "Need Help? Chat with us"}
         </div>
+        {chatOpen && (
+          <div className="chatbot-body">
+            <div className="chatbot-messages">
+              {messages.map((msg, index) => (
+                <div key={index} className={`chatbot-message ${msg.sender}`}>
+                  {msg.text}
+                </div>
+              ))}
+            </div>
+            <div className="chatbot-input">
+              <input
+                type="text"
+                placeholder="Type your message..."
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+              />
+              <button onClick={handleSendMessage}>Send</button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

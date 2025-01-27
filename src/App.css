@@ -1,81 +1,76 @@
-/* App.css */
 .App {
-  font-family: 'Arial', sans-serif;
+  text-align: center;
+  font-family: Arial, sans-serif;
 }
 
 .App-header {
-  text-align: center;
-  background-color: #3e2723;
-  color: #f4f1e1;
+  background-color: #282c34;
   padding: 20px;
-}
-
-.App-header h1 {
-  font-size: 2.5rem;
-}
-
-.App-header p {
-  font-size: 1.2rem;
+  color: white;
 }
 
 .App-main {
   padding: 20px;
-  background-color: #f4f1e1;
 }
 
-.options {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 20px;
+.options-row {
+  display: flex; /* Arrange items in a row */
+  justify-content: space-between; /* Evenly distribute items */
+  align-items: center; /* Center items vertically */
+  gap: 20px; /* Add space between the cards */
+  margin: 20px auto;
+  width: 90%; /* Adjust to fit within the available width */
 }
 
 .option-card {
-  background-color: #9e7d5e;
-  color: #f4f1e1;
-  padding: 20px;
-  width: 250px;
-  height: 250px;
+  background-color: #f9f9f9;
+  padding: 10px;
+  width: 150px;
+  height: 150px;
   text-align: center;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #333;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s, transform 0.3s;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  text-decoration: none; /* Remove underline */
 }
 
-/* Remove underline for links within option cards */
-.option-card a {
-  text-decoration: none; /* Remove underline for links */
-  color: inherit; /* Inherit color from parent */
+.option-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.option-card:active {
+  box-shadow: 0px 0px 15px 5px #007bff;
+  transform: scale(0.95); /* Shrink slightly on click */
+  border-color: #007bff;
 }
 
 .option-card h2 {
-  font-size: 1.5rem;
+  font-size: 1em;
   margin-bottom: 10px;
 }
 
 .option-card p {
-  font-size: 1rem;
-  line-height: 1.4;
+  font-size: 0.8em;
+  color: #555;
 }
 
-/* Hover effect */
-.option-card:hover {
-  background-color: #f4f1e1;
-  color: #9e7d5e;
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+@media (max-width: 1024px) {
+  .option-card {
+    width: 120px; /* Reduce card size on medium screens */
+    height: 120px;
+  }
 }
 
-.option-card:hover h2 {
-  color: #9e7d5e;
-}
-
-.option-card:hover p {
-  color: #3e2723;
+@media (max-width: 768px) {
+  .option-card {
+    width: 100px; /* Reduce further on smaller screens */
+    height: 100px;
+  }
 }
