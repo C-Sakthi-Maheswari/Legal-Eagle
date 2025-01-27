@@ -24,6 +24,36 @@ const WomenSafetyLaws = () => {
       description:
         "Addresses stalking and harassment, ensuring punishment for such behavior.",
     },
+    {
+      title: "The Dowry Prohibition Act, 1961",
+      description:
+        "This law prohibits the request, payment, or acceptance of a dowry during marriage.",
+    },
+    {
+      title: "Maternity Benefit (Amendment) Act, 2017",
+      description:
+        "This act ensures maternity leave and benefits to women working in both organized and unorganized sectors.",
+    },
+    {
+      title: "The Equal Remuneration Act, 1976",
+      description:
+        "This law mandates equal pay for equal work for both men and women.",
+    },
+    {
+      title: "The Prohibition of Child Marriage Act, 2006",
+      description:
+        "Prohibits child marriages and provides for the protection of minors in case of such marriages.",
+    },
+    {
+      title: "The Indian Divorce Act, 1869",
+      description:
+        "Provides legal provisions for Christian women seeking a divorce.",
+    },
+    {
+      title: "The Sexual Offences (Special Courts) Act, 2016",
+      description:
+        "A fast-track court mechanism to expedite trials of sexual offences against women.",
+    },
   ];
 
   const toggleExpand = (index) => {
@@ -41,12 +71,27 @@ const WomenSafetyLaws = () => {
     const userMessage = { sender: "user", text: inputMessage };
     setMessages((prev) => [...prev, userMessage]);
 
-    // Simulate bot response
+    // Simulate bot response based on message
     setTimeout(() => {
-      const botMessage = {
-        sender: "bot",
-        text: `You asked: "${inputMessage}". Let me find the best legal advice for you.`,
-      };
+      let botMessage;
+      if (inputMessage.toLowerCase().includes("laws")) {
+        botMessage = {
+          sender: "bot",
+          text: `You asked about laws. Here are some examples: ${laws
+            .map((law) => law.title)
+            .join(", ")}.`,
+        };
+      } else if (inputMessage.toLowerCase().includes("domestic violence")) {
+        botMessage = {
+          sender: "bot",
+          text: `The Protection of Women from Domestic Violence Act, 2005, provides protection from domestic abuse. Let me know if you want more details.`,
+        };
+      } else {
+        botMessage = {
+          sender: "bot",
+          text: `You asked: "${inputMessage}". Let me find the best legal advice for you.`,
+        };
+      }
       setMessages((prev) => [...prev, botMessage]);
     }, 1000);
 
