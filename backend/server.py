@@ -1,72 +1,132 @@
 from flask import Flask, request, jsonify
 import os
 from PyPDF2 import PdfReader
-from pdf2image import convert_from_path
+from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 import pytesseract
-from PIL import Image
 import requests
+
+from pdf2image import convert_from_path
 
 app = Flask(__name__)
 
 # Set the path to Tesseract executable (adjust for your environment)
-pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'  # Adjust as necessary for your environment
+pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'  # Adjust as necessary
 
-
+# Hugging Face Model API (Text Summarization)
 API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
 headers = {"Authorization": "Bearer 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"}
 
+# Translation Model Initialization
+model = M2M100ForConditionalGeneration.from_pretrained("facebook/m2m100_418M")
+tokenizer = M2M100Tokenizer.from_pretrained("facebook/m2m100_418M")
+
+@app.route('/translate/<text>/<target_language>', methods=['GET'])
+def translate_get_route(text, target_language):
+    """
+    Translate the provided text to the target language using GET request.
+    """
+    try:
+        # Decode the URL-encoded text
+        from urllib.parse import unquote
+        text = unquote(text)
+
+        # Perform translation
+        translated_text = translate_text(text, target_language)
+
+        if not translated_text:
+            return jsonify({'error': 'Translation failed'}), 500
+
+        return jsonify({'translated_text': translated_text}), 200
+
+    except Exception as e:
+        print(f"Error in /translate GET route: {e}")
+        return jsonify({'error': 'An unexpected error occurred'}), 500
+
+
+def translate_text(text, target_language="hi"):
+    """Translate text to a target language using the M2M100 model."""
+    try:
+        tokenizer.src_lang = "en"  # Source language is English
+        encoded_text = tokenizer(text, return_tensors="pt")
+        generated_tokens = model.generate(
+            **encoded_text, forced_bos_token_id=tokenizer.get_lang_id(target_language)
+        )
+        translated_text = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)
+        return translated_text[0]  # Return the first translated string
+    except Exception as e:
+        print(f"Translation error: {e}")
+        return None
 
 
 def simplify_text(input_text):
-    payload = {
-        "inputs": input_text
-    }
-    response = requests.post(API_URL, headers=headers, json=payload)
-    output = response.json()
-    return output[0]['summary_text']
+    """Simplify text using Hugging Face API."""
+    payload = {"inputs": input_text}
+    try:
+        response = requests.post(API_URL, headers=headers, json=payload)
+        response.raise_for_status()  # Raise an HTTPError for bad responses
+        output = response.json()
+        return output[0]['summary_text']
+    except Exception as e:
+        print(f"Simplification error: {e}")
+        return "Error simplifying text."
 
-# Example usage
-#input_text = "VIEH Private Limited Sagar City Society, Andheri West, Mumbai, Maharashtra - 400058 January 20, 2025 Internship Offer Letter Dear Sheeba Sharon, On behalf of VIEH Private Limited, I am pleased to inform you that you have been considered for the Cyber Security internship. As a result, you will be working with us on the project from January 20, 2025. During your internship, the concentration will be on helping you understand the theoretical concepts with their practicals and implementations to help you connect your classroom knowledge and on-field experience. As a result, you will be proactively contributing to the above-selected project, besides product development and research field. In addition, you will be required to complete performance and learning goals for your current project with us. With this offer letter, you acknowledge that you understand participation in this program is not an offer of employment, and successful completion of the program does not entitle you to an employment offer from us. We hope that your association with the company will be successful and rewarding. We look forward to having you begin your career with us. Once again, congratulations to you on your selection, and all the best for your endeavors. Regards, Manish Kumar CEO & Chief Cyber Security Analyst at VIEH"
-# simplified_output = simplify_text(input_text)
-# print(simplified_output)
 
-
-# Text extraction function
 def extract_text_from_pdf(pdf_path):
     """Extract text from a PDF file."""
     text_output = []
-    reader = PdfReader(pdf_path)
-    for page in reader.pages:
-        text = page.extract_text()
-        if text:
-            text_output.append(text)
-        else:
-            text_output.append("No text found on this page.")
-    return "\n".join(text_output)
+    try:
+        reader = PdfReader(pdf_path)
+        for page in reader.pages:
+            text = page.extract_text()
+            text_output.append(text if text else "No text found on this page.")
+        return "\n".join(text_output)
+    except Exception as e:
+        print(f"PDF extraction error: {e}")
+        return "Error extracting text from the PDF."
+
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    """Handle file upload and text extraction."""
+    """Handle file upload and text processing."""
     if 'file' not in request.files:
-        return jsonify({'message': 'No file part'}), 400
+        return jsonify({'error': 'No file uploaded'}), 400
 
     file = request.files['file']
     if file.filename == '':
-        return jsonify({'message': 'No selected file'}), 400
+        return jsonify({'error': 'No file selected'}), 400
 
-    # Save the file to a temporary location
+    # Save file to a temporary location
     file_path = os.path.join('uploads', file.filename)
+    os.makedirs('uploads', exist_ok=True)
     file.save(file_path)
 
-    # Process the file
+    # Extract text and simplify it
     extracted_text = extract_text_from_pdf(file_path)
+    simplified_output = simplify_text(extracted_text)
 
-    simplified_output= simplify_text(extracted_text)
+    return jsonify({'extracted_text': simplified_output}), 200
 
-    # Return the extracted text as a JSON response
-    return jsonify({'extracted_text': simplified_output})
+@app.route('/translate', methods=['POST'])
+def translate_route():
+    try:
+        data = request.get_json()
+        text = data.get('simplified_text')  # Get text from the request
+        target_language = data.get('targetLanguage', 'hi')  # Default to Hindi
+
+        if not text:
+            return jsonify({'error': 'No text provided'}), 400
+
+        # Perform translation
+        translated_text = translate_text(text, target_language)
+
+        if not translated_text:
+            return jsonify({'error': 'Translation failed'}), 500
+
+        return jsonify({'translated_text': translated_text}), 200
+
+    except Exception as e:
+        print(f"Error in /translate route: {e}")
+        return jsonify({'error': 'An unexpected error occurred'}), 500
 
 if __name__ == '__main__':
-    # Ensure the uploads directory exists
-    os.makedirs('uploads', exist_ok=True)
     app.run(debug=True, host='0.0.0.0', port=5000)

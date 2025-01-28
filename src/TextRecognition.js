@@ -1,40 +1,56 @@
-import React,{ useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './TextRecognition.css';
-
-
-// function TextRecognition() {
-//   return (
-//     <div>
-//       <h2>Text Recognition & Simplification</h2>
-//       <p>Recognize and simplify complex legal documents with ease.</p>
-//     </div>
-//   );
-// }
-
-// export default TextRecognition;
-
 
 const TextRecognition = () => {
   const [file, setFile] = useState(null);
   const [text, setText] = useState('');
+  const [translatedText, setTranslatedText] = useState('');
+  const [targetLanguage, setTargetLanguage] = useState('en'); // Default to English
 
+  const handleLanguageChange = (event) => {
+    setTargetLanguage(event.target.value);
+    setTranslatedText('');
+  };
+
+  const handleTranslate = async () => {
+    if (!text) {
+      setTranslatedText('No text to translate.');
+      return;
+    }
+
+    try {
+      const response = await fetch(`/translate/${encodeURIComponent(text)}/${targetLanguage}`, {
+        method: 'GET', // Using GET instead of POST since we're passing data in the URL
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setTranslatedText(data.translated_text);
+
+    } catch (error) {
+      console.error('Translation error:', error);
+      setTranslatedText(`Translation error: ${error.message}`);
+    }
+  };
 
   useEffect(() => {
     fetch('/members') // Adjust URL as per your backend
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);// Assuming your backend sends { "members": [...] }
+        console.log(data); // Assuming your backend sends { "members": [...] }
       })
       .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
-    
   };
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
     if (!file) {
       setText('No file selected.');
@@ -56,7 +72,7 @@ const TextRecognition = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setText(data.extracted_text);  // Display the extracted text
+        setText(data.extracted_text); // Display the extracted text
       } else {
         setText('Error extracting text.');
       }
@@ -80,6 +96,21 @@ const TextRecognition = () => {
       <div>
         <h3>Extracted Text:</h3>
         <p>{text}</p>
+      </div>
+      <div>
+        <h3>Translate to:</h3>
+        <select value={targetLanguage} onChange={handleLanguageChange}>
+          <option value="en">English</option>
+          <option value="hi">Hindi</option>
+          <option value="ml">Malayalam</option>
+        </select>
+        <button type="button" onClick={handleTranslate} disabled={!text}>
+          Translate
+        </button>
+        <div>
+          <h3>Translated Text:</h3>
+          <p>{translatedText}</p>
+        </div>
       </div>
     </div>
   );
