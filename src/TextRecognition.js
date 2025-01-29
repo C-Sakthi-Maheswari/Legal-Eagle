@@ -103,6 +103,9 @@ const TextRecognition = () => {
           <option value="en">English</option>
           <option value="hi">Hindi</option>
           <option value="ml">Malayalam</option>
+          <option value="bn">Bengali</option>
+          <option value="mr">Marathi</option>
+          <option value="pa">Punjabi</option>
         </select>
         <button type="button" onClick={handleTranslate} disabled={!text}>
           Translate
