@@ -1,54 +1,4 @@
-//import React from 'react';
-import './HistoricalManuscripts.css';
-
-// function HistoricalManuscripts() {
-//   return (
-//     <div>
-//       <h2>Read Old Handwritten Manuscripts</h2>
-//       <p>Transform traditional handwritten manuscripts into legible and accessible texts.</p>
-//     </div>
-//   );
-// }
-
-// export default HistoricalManuscripts;
 import React, { useState } from "react";
-import Tesseract from "tesseract.js";
-
-// Convert image to grayscale and apply thresholding
-const preprocessImage = (image) => {
-  const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
-  const img = new Image();
-  
-  return new Promise((resolve) => {
-    img.onload = () => {
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.drawImage(img, 0, 0);
-      
-      // Convert to grayscale
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const data = imageData.data;
-      
-      for (let i = 0; i < data.length; i += 4) {
-        const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
-        data[i] = data[i + 1] = data[i + 2] = avg; // Set R, G, B to grayscale value
-      }
-
-      // Apply thresholding
-      const threshold = 128;
-      for (let i = 0; i < data.length; i += 4) {
-        const brightness = data[i];
-        const newColor = brightness > threshold ? 255 : 0;
-        data[i] = data[i + 1] = data[i + 2] = newColor; // Set R, G, B to thresholded value
-      }
-      
-      ctx.putImageData(imageData, 0, 0);
-      resolve(canvas.toDataURL()); // Return base64 image
-    };
-    img.src = URL.createObjectURL(image);
-  });
-};
 
 function HistoricalManuscripts() {
   const [image, setImage] = useState(null);
@@ -70,29 +20,25 @@ function HistoricalManuscripts() {
     setError("");
 
     try {
-      // Preprocess image (grayscale + threshold)
-      const processedImage = await preprocessImage(image);
-      
-      // Recognize text using Tesseract.js
-      Tesseract.recognize(
-        processedImage,
-        "eng", // Language code
-        {
-          logger: (m) => console.log(m), // Log the progress
-        }
-      )
-        .then(({ data: { text } }) => {
-          setRecognizedText(text);
-          setIsProcessing(false);
-        })
-        .catch((err) => {
-          console.error(err);
-          setError("Failed to recognize text. Please try again.");
-          setIsProcessing(false);
-        });
+      const formData = new FormData();
+      formData.append("file", image);
+
+      // Send image to backend for OCR processing
+      const response = await fetch("http://127.0.0.1:5000/ocr", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to recognize text. Status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      setRecognizedText(result.recognized_text || "");
+      setIsProcessing(false);
     } catch (err) {
-      console.error("Preprocessing error:", err);
-      setError("Failed to preprocess image. Please try again.");
+      console.error("Error during fetch:", err);
+      setError(`Failed to recognize text. ${err.message}`);
       setIsProcessing(false);
     }
   };
