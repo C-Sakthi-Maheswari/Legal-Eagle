@@ -113,3 +113,131 @@ li:hover {
     font-size: 0.9rem;
   }
 }
+/* Chat Container */
+.chat-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+/* Heading */
+.chat-container h1 {
+  font-size: 2rem;
+  color: #bf360c; /* Teal color for the header */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Category Selector */
+.category-selector {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.category-selector label {
+  font-size: 1.1rem;
+  color: black;
+  margin-right: 10px;
+}
+
+.category-selector select {
+  font-size: 1rem;
+  padding: 8px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #e0f2f1;
+  color: black;
+  width: 100%;
+  max-width: 250px;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+/* Input Area */
+.input-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.input-area input {
+  width: 80%;
+  padding: 12px;
+  border: 1px solid black;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: black;
+  background-color: #d6d3b8;
+}
+
+.input-area button {
+  width: 15%;
+  padding: 12px;
+  background-color: #e76620;
+  color: #ffffff;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.input-area button:hover {
+  background-color: #e65100; /* Darker teal on hover */
+}
+
+/* Chat Box */
+.chat-box {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #fffde7; /* Light gray background for chat */
+  border-radius: 8px;
+}
+
+/* Message Styling */
+.message {
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  line-height: 1.4;
+  max-width: 80%;
+}
+
+.user-message {
+  background-color: #dbe7e8; /* Teal background for user messages */
+  color: #ff8f00;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.bot-message {
+  background-color: #392a02; /* Light teal background for bot messages */
+  color: #e59328;
+  align-self: flex-start;
+  margin-right: auto;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .chat-container {
+    padding: 15px;
+  }
+
+  .input-area input {
+    width: 70%;
+  }
+
+  .input-area button {
+    width: 25%;
+  }
+
+  .message {
+    max-width: 100%;
+  }
+}
