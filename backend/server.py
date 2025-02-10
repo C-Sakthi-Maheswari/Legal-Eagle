@@ -1,24 +1,68 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
+from huggingface_hub import InferenceClient
+import logging
 import os
 from PyPDF2 import PdfReader
-from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 import pytesseract
 import requests
-
 from pdf2image import convert_from_path
 
 app = Flask(__name__)
+CORS(app)  # Allow frontend to communicate with backend
 
-# Set the path to Tesseract executable (adjust for your environment)
-pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'  # Adjust as necessary
+# Initialize Hugging Face Client for Chatbot
+client = InferenceClient(api_key="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")
 
 # Hugging Face Model API (Text Summarization)
 API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
 headers = {"Authorization": "Bearer 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"}
 
-# Translation Model Initialization
+# Set the path to Tesseract executable (adjust for your environment)
+pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'  # Adjust as necessary
+
+# Initialize Translation Model
+from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 model = M2M100ForConditionalGeneration.from_pretrained("facebook/m2m100_418M")
 tokenizer = M2M100Tokenizer.from_pretrained("facebook/m2m100_418M")
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+
+@app.route("/chat", methods=["POST"])
+def chat():
+    data = request.json
+    user_input = data.get("message", "")
+    category = data.get("category", "general")
+
+    # Define prompt based on category
+    if category == "legal":
+        prompt = f"Give legal advice about {user_input}"
+        role = "legal assistant"
+    elif category == "safety":
+        prompt = f"Give a safety tip about {user_input}"
+        role = "safety advisor"
+    else:
+        prompt = f"Give an answer to {user_input}"
+        role = ""
+
+    messages = [
+        {"role": "system", "content": f"You are a {role} that gives responses."},
+        {"role": "user", "content": prompt}
+    ]
+
+    try:
+        completion = client.chat.completions.create(
+            model="mistralai/Mistral-7B-Instruct-v0.3",
+            messages=messages,
+            max_tokens=100
+        )
+        response = completion.choices[0].message['content']
+    except Exception as e:
+        logging.error(f"Error while fetching response: {str(e)}")
+        response = f"Error: Something went wrong. Please try again later."
+
+    return jsonify({"response": response})
 
 @app.route('/translate/<text>/<target_language>', methods=['GET'])
 def translate_get_route(text, target_language):
@@ -129,4 +173,4 @@ def translate_route():
         return jsonify({'error': 'An unexpected error occurred'}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True)
