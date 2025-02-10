@@ -72,7 +72,7 @@ const TextRecognition = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setText(data.extracted_text); // Display the extracted text
+        setText(data.extracted_text); // Store extracted text
       } else {
         setText('Error extracting text.');
       }
@@ -80,6 +80,13 @@ const TextRecognition = () => {
       console.error('Error:', error);
       setText('Error uploading file.');
     }
+  };
+
+  // Function to split the text into sentences, split at periods followed by a capital letter
+  const splitTextIntoBulletPoints = (text) => {
+    // Split text based on periods followed by a capital letter
+    const sentences = text.split(/(?<=\.)\s+(?=[A-Z])/).filter(Boolean);
+    return sentences;
   };
 
   return (
@@ -93,10 +100,20 @@ const TextRecognition = () => {
         />
         <button type="submit">Upload PDF</button>
       </form>
+      
       <div>
         <h3>Extracted Text:</h3>
-        <p>{text}</p>
+        {text ? (
+          <ul>
+            {splitTextIntoBulletPoints(text).map((sentence, index) => (
+              <li key={index}>{sentence}.</li> // Display sentences as bullet points with period
+            ))}
+          </ul>
+        ) : (
+          <p>No text extracted.</p>
+        )}
       </div>
+
       <div>
         <h3>Translate to:</h3>
         <select value={targetLanguage} onChange={handleLanguageChange}>
@@ -112,7 +129,15 @@ const TextRecognition = () => {
         </button>
         <div>
           <h3>Translated Text:</h3>
-          <p>{translatedText}</p>
+          {translatedText ? (
+            <ul>
+              {splitTextIntoBulletPoints(translatedText).map((sentence, index) => (
+                <li key={index}>{sentence}.</li> // Display translated sentences as bullet points
+              ))}
+            </ul>
+          ) : (
+            <p>No translation available.</p>
+          )}
         </div>
       </div>
     </div>
