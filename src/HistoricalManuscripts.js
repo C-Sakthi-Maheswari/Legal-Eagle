@@ -24,7 +24,7 @@ function HistoricalManuscripts() {
       formData.append("file", image);
 
       // Send image to backend for OCR processing
-      const response = await fetch("http://127.0.0.1:5000/ocr", {
+      const response = await fetch("http://127.0.0.1:5011/ocr", {
         method: "POST",
         body: formData,
       });
