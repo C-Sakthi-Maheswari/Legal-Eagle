@@ -6,6 +6,8 @@ import os
 from PyPDF2 import PdfReader
 import pytesseract
 import requests
+
+
 from pdf2image import convert_from_path
 
 app = Flask(__name__)
@@ -14,7 +16,7 @@ CORS(app)  # Allow frontend to communicate with backend
 # Initialize Hugging Face Client for Chatbot
 client = InferenceClient(api_key="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")
 
-# Hugging Face Model API (Text Summarization)
+# Hugging Face Model API (Text Summarization) 
 API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
 headers = {"Authorization": "Bearer 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"}
 
