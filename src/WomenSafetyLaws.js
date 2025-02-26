@@ -63,7 +63,7 @@ const WomenSafetyLaws = () => {
               className={`message ${msg.role === "user" ? "user-message" : "bot-message"}`}
             >
               <strong>{msg.role === "user" ? "You: " : "Bot: "}</strong>
-              {msg.content}
+              <div dangerouslySetInnerHTML={{ __html: msg.content }} />
             </div>
           ))}
         </div>

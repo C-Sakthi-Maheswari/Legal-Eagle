@@ -6,7 +6,7 @@ import os
 from PyPDF2 import PdfReader
 import pytesseract
 import requests
-
+import re
 
 from pdf2image import convert_from_path
 
@@ -14,11 +14,11 @@ app = Flask(__name__)
 CORS(app)  # Allow frontend to communicate with backend
 
 # Initialize Hugging Face Client for Chatbot
-client = InferenceClient(api_key="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")
+client = InferenceClient(api_key="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")
 
 # Hugging Face Model API (Text Summarization) 
 API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
-headers = {"Authorization": "Bearer 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"}
+headers = {"Authorization": "Bearer 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"}
 
 # Set the path to Tesseract executable (adjust for your environment)
 pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'  # Adjust as necessary
@@ -49,7 +49,7 @@ def chat():
         role = ""
 
     messages = [
-        {"role": "system", "content": f"You are a {role} that gives responses."},
+        {"role": "system", "content": f"You are a {role} that gives responses for an indian women."},
         {"role": "user", "content": prompt}
     ]
 
@@ -57,9 +57,48 @@ def chat():
         completion = client.chat.completions.create(
             model="mistralai/Mistral-7B-Instruct-v0.3",
             messages=messages,
-            max_tokens=100
+            max_tokens=150
         )
         response = completion.choices[0].message['content']
+        # Add assistant response to conversation history
+        messages.append({
+        "role": "assistant",
+        "content": response
+        })
+
+        follow_up_prompt = f"Suggest 3 relevant follow-up questions an indian women might ask based on this response: {response}"
+
+        follow_up_completion = client.chat.completions.create(
+        model="mistralai/Mistral-7B-Instruct-v0.3",
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a helpful assistant that generates follow-up questions based on a legal, safety, or general response."
+            },
+            {
+                "role": "user",
+                "content": follow_up_prompt
+            }
+                ],
+        max_tokens=150
+        )
+        follow_up_examples = follow_up_completion.choices[0].message['content']
+        response= response+"\n\n Here are some follow up questions you can ask <br><br> "+follow_up_examples
+
+        # Add a line break before question numbers
+        response = re.sub(r'(\d+\.)', r'<br>\1', response)
+
+# Split the response by question numbers and keep only the first 3
+        questions = re.findall(r'(<br>\d+\..*?)(?=<br>\d+\.|$)', response, re.DOTALL)
+        limited_response = "".join(questions[:7])  # 3 questions = 6 elements (question + text)
+
+# Add a message if more questions exist
+        if len(questions) > 7:
+            limited_response += "<br><br>For more questions, feel free to ask!"
+
+        response = limited_response     
+
+
     except Exception as e:
         logging.error(f"Error while fetching response: {str(e)}")
         response = f"Error: Something went wrong. Please try again later."
