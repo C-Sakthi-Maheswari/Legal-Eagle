@@ -1,10 +1,18 @@
 import React, { useState } from "react";
+import { ClipboardCopy } from 'lucide-react';
 
 function HistoricalManuscripts() {
   const [image, setImage] = useState(null);
   const [recognizedText, setRecognizedText] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState("");
+
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(recognizedText);
+    alert('Text copied to clipboard!');
+  };
+
 
   const handleFileChange = (e) => {
     setImage(e.target.files[0]);
@@ -106,6 +114,9 @@ function HistoricalManuscripts() {
             }}
           >
             <p style={{ fontSize: "16px", color: "#333" }}>{recognizedText}</p>
+           <button onClick={copyToClipboard} className="flex items-center gap-2">
+                  <ClipboardCopy size={20} /> Copy Text
+                </button>
           </div>
         </div>
       )}

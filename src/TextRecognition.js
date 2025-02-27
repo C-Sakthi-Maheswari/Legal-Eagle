@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './TextRecognition.css';
+import { ClipboardCopy } from 'lucide-react';
 
 const TextRecognition = () => {
   const [file, setFile] = useState(null);
@@ -89,6 +90,15 @@ const TextRecognition = () => {
     return sentences;
   };
 
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(text);
+    alert('Text copied to clipboard!');
+  };
+  const copyToClipboard2 = () => {
+    navigator.clipboard.writeText(translatedText);
+    alert('Text copied to clipboard!');
+  };
+
   return (
     <div className="text-recognition-page">
       <h2>Text Recognition</h2>
@@ -112,6 +122,9 @@ const TextRecognition = () => {
         ) : (
           <p>No text extracted.</p>
         )}
+       <button onClick={copyToClipboard} className="flex items-center gap-2">
+        <ClipboardCopy size={20} /> Copy Text
+      </button>
       </div>
 
       <div>
@@ -119,10 +132,8 @@ const TextRecognition = () => {
         <select value={targetLanguage} onChange={handleLanguageChange}>
           <option value="en">English</option>
           <option value="hi">Hindi</option>
-          <option value="ml">Malayalam</option>
           <option value="bn">Bengali</option>
           <option value="mr">Marathi</option>
-          <option value="pa">Punjabi</option>
         </select>
         <button type="button" onClick={handleTranslate} disabled={!text}>
           Translate
@@ -138,6 +149,9 @@ const TextRecognition = () => {
           ) : (
             <p>No translation available.</p>
           )}
+          <button onClick={copyToClipboard2} className="flex items-center gap-2">
+        <ClipboardCopy size={20} /> Copy Text
+      </button>
         </div>
       </div>
     </div>

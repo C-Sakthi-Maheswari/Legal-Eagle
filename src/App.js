@@ -19,20 +19,21 @@ function App() {
         <main className="App-main">
           <div className="options-row">
             <Link to="/text-recognition" className="option-card">
-              <h2>Text Recognition</h2>
-              <p>Recognize and simplify legal documents.</p>
+            
+              <h2>Legal Document Simplification</h2>
+              <p>Easily understand complex legal documents with simplified text</p>
             </Link>
             <Link to="/voice-translation" className="option-card">
-              <h2>Voice Translation</h2>
-              <p>Convert spoken words to text and translate.</p>
+              <h2>Voice-to-Text Translation</h2>
+              <p>Convert spoken words into text and translate to mutiple languages</p>
             </Link>
             <Link to="/historical-manuscripts" className="option-card">
-              <h2>Historical Manuscripts</h2>
-              <p>Read traditional handwritten texts.</p>
+              <h2>Tamil Document Digitization</h2>
+              <p>Extract and digitize texts from Tamil documents</p>
             </Link>
             <Link to="/women-safety" className="option-card">
               <h2>Women Safety Laws</h2>
-              <p>Access essential laws for women’s safety.</p>
+              <p>Explore essential safety laws and legal rights to help women.</p>
             </Link>
           </div>
         </main>

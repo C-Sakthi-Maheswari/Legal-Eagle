@@ -51,7 +51,7 @@ const WomenSafetyLaws = () => {
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Type your message..."
+            placeholder="What are my legal rights in my work place..."
           />
           <button onClick={handleSendMessage}>Send</button>
         </div>
