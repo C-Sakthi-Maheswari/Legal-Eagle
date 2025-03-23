@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Eagle - Main</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: black;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        /* Welcome Text */
+        .welcome-message {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .legal-eagle {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: gold;
+            text-shadow: 2px 2px 15px rgba(255, 223, 0, 0.8);
+            display: inline-block;
+        }
+
+        /* Carousel */
+        .carousel-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            perspective: 1000px;
+            margin-top: 20px; /* Ensures spacing between text and carousel */
+        }
+
+        .carousel {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+            animation: spin 10s linear infinite;
+        }
+
+        .carousel div {
+            position: absolute;
+            width: 260px;
+            height: 200px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .carousel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+        .button-container {
+    display: flex;
+    justify-content: center;  /* Centers button horizontally */
+    align-items: center;      /* Centers button vertically */
+    height: 100vh;            /* Full viewport height */
+}
+
+.button-container button {
+    background-color: #ffcc00;  /* Yellow color */
+    color: #000;               /* Black text */
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;        /* Rounded corners */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button-container button:hover {
+    background-color: #ff9900; /* Darker yellow on hover */
+    transform: scale(1.1);     /* Slight zoom effect */
+}
+
+
+        /* Positioning carousel items */
+        .carousel div:nth-child(1) { transform: rotateY(0deg) translateZ(250px); }
+        .carousel div:nth-child(2) { transform: rotateY(90deg) translateZ(250px); }
+        .carousel div:nth-child(3) { transform: rotateY(180deg) translateZ(250px); }
+        .carousel div:nth-child(4) { transform: rotateY(270deg) translateZ(250px); }
+
+        /* Rotation Animation */
+        @keyframes spin {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+
+        /* Button */
+        .get-started {
+    margin-top: 50px;
+    padding: 15px 30px;
+    font-size: 2.5rem;
+    color: white;
+    background: linear-gradient(135deg, #FFD700, #FFA500); /* Gold to Orange Gradient */
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 5px 15px rgba(255, 165, 0, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.get-started:hover {
+    background: linear-gradient(135deg, #FFA500, #FF8C00); /* Darker Orange on Hover */
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 140, 0, 0.6);
+}
+
+.get-started:active {
+    transform: scale(0.98);
+    box-shadow: 0 4px 10px rgba(255, 140, 0, 0.6);
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="welcome-message">Welcome to <span class="legal-eagle">Legal Eagle</span></div>
+
+    <div class="carousel-container">
+        <div class="carousel">
+            <div><img src="images/image_1.png" alt="Legal Image 1"></div>
+            <div><img src="images/image_2.png" alt="Legal Image 2"></div>
+            <div><img src="images/image_3.png" alt="Legal Image 3"></div>
+            <div><img src="images/image_4.png" alt="Legal Image 4"></div>
+        </div>
+    </div>
+    <div class="button-container">
+        <button onclick="window.location.href='http://localhost:3000/'">Get Started</button>
+    </div>
+    
+
+    <script src="script.js"></script>
+
+
+</body>
+</html>
