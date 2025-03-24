@@ -1,0 +1,63 @@
+/* Navbar Container */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #b38e00; /* More polished gold */
+  padding: 5px 20px;
+  height: 60px;
+  z-index: 1000;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Navbar Left (Logo & Brand) */
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px; /* Adjusted size */
+  height: 50px;
+}
+
+.logo-img {
+  width: 45px;
+  height: 45px;
+}
+
+.logo-text {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.8rem;
+  color: black;
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+/* Navbar Right (Icons) */
+.navbar-right {
+  display: flex;
+  gap: 15px; /* Adds proper spacing */
+}
+
+.nav-icon {
+  color: black;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.nav-icon:hover {
+  color: white;
+}
+
+/* Prevent Content Overlap */
+.main-content {
+  margin-top: 70px;
+}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ClipboardCopy } from 'lucide-react';
+import "./HistoricalManuscripts.css";
 
 function HistoricalManuscripts() {
   const [image, setImage] = useState(null);
@@ -52,74 +53,58 @@ function HistoricalManuscripts() {
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px", padding: "20px" }}>
+    <div className="container">
+      <div className="tamil-docu-page">
       <h2>Historical Manuscripts Text Recognition</h2>
+      <div className="upload-box">
       <p>
         Upload an image of a historical manuscript or document to extract
         text.
       </p>
-
+      </div>
+      
+      <div className='upload-section'>
       <input
         type="file"
         accept="image/*"
         onChange={handleFileChange}
-        style={{
-          marginBottom: "20px",
-          padding: "10px",
-          fontSize: "16px",
-          borderRadius: "5px",
-          border: "1px solid #ccc",
-        }}
+       
       />
 
       <button
         onClick={handleRecognizeText}
-        style={{
-          padding: "10px 20px",
-          fontSize: "16px",
-          borderRadius: "5px",
-          backgroundColor: "#007bff",
-          color: "white",
-          border: "none",
-          cursor: "pointer",
-        }}
+        className='upload-btn'
+        
         disabled={isProcessing}
       >
         {isProcessing ? "Recognizing Text..." : "Recognize Text"}
       </button>
+      </div>
+      
 
       {error && (
         <div
-          style={{
-            marginTop: "20px",
-            color: "red",
-            fontWeight: "bold",
-          }}
+          
         >
           {error}
         </div>
       )}
-
-      {recognizedText && (
-        <div style={{ marginTop: "20px" }}>
-          <h3>Recognized Text:</h3>
-          <div
-            style={{
-              border: "1px solid #ccc",
-              padding: "10px",
-              borderRadius: "5px",
-              backgroundColor: "#f9f9f9",
-              maxHeight: "400px",
-              overflowY: "auto",
-            }}
-          >
-            <p style={{ fontSize: "16px", color: "#333" }}>{recognizedText}</p>
-           <button onClick={copyToClipboard} className="flex items-center gap-2">
-                  <ClipboardCopy size={20} /> Copy Text
-                </button>
-          </div>
+        <div className="extracted-text-container">
+          {recognizedText && (
+            <div style={{ marginTop: "20px" }}>
+              <h3 className="extracted-text-label">Recognized Text:</h3>
+              <div
+              
+              >
+                <p >{recognizedText}</p>
+              <button onClick={copyToClipboard} className="flex items-center gap-2">
+                      <ClipboardCopy size={20} /> Copy Text
+                    </button>
+              </div>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

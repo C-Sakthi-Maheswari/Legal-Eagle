@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './TextRecognition.css';
-import { ClipboardCopy } from 'lucide-react';
+import { ClipboardCopy,Check } from 'lucide-react';
 
 const TextRecognition = () => {
   const [file, setFile] = useState(null);
@@ -100,19 +100,33 @@ const TextRecognition = () => {
   };
 
   return (
+    <div className="container">
     <div className="text-recognition-page">
-      <h2>Text Recognition</h2>
+      <h2 className="text-reco">Text Recognition</h2>
+      <div className="box-layout">
+        <div className="title">
+          <div className="circle">1</div>
+          <p>upload the file the needs to be simplified</p>
+        </div>
+        <div className="file-uploading">
+        
       <form onSubmit={handleSubmit}>
-        <input
-          type="file"
-          accept=".pdf"
-          onChange={handleFileChange}
-        />
-        <button type="submit">Upload PDF</button>
+      <input
+    type="file"
+    id="file-upload"
+    className="file-input"
+    accept=".pdf"
+    onChange={handleFileChange}
+  />
+  <button type="submit" className="upload-btn"   style={{ height:"40px",width:"40px",padding: '3px 6px', fontSize: '12px', borderRadius: '4px'}} >
+   <Check size={20} /> {/* Tick mark icon */}
+     </button>
       </form>
-      
-      <div>
-        <h3>Extracted Text:</h3>
+        </div>
+     
+        <h3 className="extracted-box">Extracted Text:</h3>
+      <div className="result-box">
+        
         {text ? (
           <ul>
             {splitTextIntoBulletPoints(text).map((sentence, index) => (
@@ -126,8 +140,17 @@ const TextRecognition = () => {
         <ClipboardCopy size={20} /> Copy Text
       </button>
       </div>
-
+      </div>
+      
       <div>
+      <div className="box-layout" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <div className="title" style={{marginTop:"20px"}}>
+          <div className="circle">2</div>
+          <p>select a language to translate into</p>
+         
+          
+        </div>
+        <div className="file-uploading">
         <h3>Translate to:</h3>
         <select value={targetLanguage} onChange={handleLanguageChange}>
           <option value="en">English</option>
@@ -135,11 +158,24 @@ const TextRecognition = () => {
           <option value="bn">Bengali</option>
           <option value="mr">Marathi</option>
         </select>
-        <button type="button" onClick={handleTranslate} disabled={!text}>
+        <button type="button" onClick={handleTranslate} disabled={!text} 
+          style={{
+            display: "block", 
+            marginRight: "0px", // Ensures it's aligned left
+            height: "30px",
+            width: "70px",
+            padding: "3px 3px",
+            fontSize: "12px",
+            borderRadius: "4px"
+          }}>
           Translate
         </button>
-        <div>
-          <h3>Translated Text:</h3>
+        </div>
+        
+       
+        
+          <h3 className='extracted-box'>Translated Text:</h3>
+          <div className='result-box'>
           {translatedText ? (
             <ul>
               {splitTextIntoBulletPoints(translatedText).map((sentence, index) => (
@@ -151,9 +187,14 @@ const TextRecognition = () => {
           )}
           <button onClick={copyToClipboard2} className="flex items-center gap-2">
         <ClipboardCopy size={20} /> Copy Text
-      </button>
+        </button>
         </div>
       </div>
+      </div>
+      </div>
+
+
+   
     </div>
   );
 };
