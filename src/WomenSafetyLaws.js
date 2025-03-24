@@ -33,44 +33,51 @@ const WomenSafetyLaws = () => {
   };
 
   return (
-    <div className="app">
-      <div className="chat-container">
-        <h1>AI Chat Assistant</h1>
+    <div className="chat-container">
+    <h1>AI Chat Assistant</h1>
 
-        <div className="category-selector">
-          <label>Choose Category: </label>
-          <select value={category} onChange={(e) => setCategory(e.target.value)}>
-            <option value="general">General</option>
-            <option value="legal">Legal Advice</option>
-            <option value="safety">Safety Tips</option>
-          </select>
-        </div>
+    {/* Category Selector */}
+    <div className="category-selector" style={{marginBottom:"20px",marginTop:"10px"}}>
+      <label>Choose Category: </label>
+      <select value={category} onChange={(e) => setCategory(e.target.value)}>
+        <option value="general">General</option>
+        <option value="legal">Legal Advice</option>
+        <option value="safety">Safety Tips</option>
+      </select>
+    </div>
 
-        <div className="input-area">
-          <input
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="What are my legal rights in my work place..."
-          />
-          <button onClick={handleSendMessage}>Send</button>
-        </div>
-        
-        <div className="chat-box">
-          {chatHistory.map((msg, index) => (
-            <div
-              key={index}
-              className={`message ${msg.role === "user" ? "user-message" : "bot-message"}`}
-            >
-              <strong>{msg.role === "user" ? "You: " : "Bot: "}</strong>
-              <div dangerouslySetInnerHTML={{ __html: msg.content }} />
-            </div>
+    {/* Chat Box */}
+    <div className="chat-box">
+  {chatHistory.map((msg, index) => (
+    <div 
+      key={index} 
+      className={`message ${msg.role === "user" ? "user-message" : "bot-message"}`}
+    >
+      <strong>{msg.role === "user" ? "You: " : "Bot: "}</strong>
+      <div className="message-content">
+        {msg.content
+          .replace(/<br\s*\/?>/gi, "\n") // Remove <br> tags
+          .split("\n") // Split by newline
+          .map((line, i) => (
+            <p key={i}>{line}</p>
           ))}
-        </div>
-
-        
       </div>
     </div>
+  ))}
+</div>
+
+
+    {/* Input Area */}
+    <div className="input-area">
+      <input
+        type="text"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        placeholder="What are my legal rights in my work place..."
+      />
+      <button onClick={handleSendMessage}>➤</button>
+    </div>
+  </div>
   );
 }
 

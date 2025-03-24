@@ -1,0 +1,107 @@
+/* Global styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: Arial, sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  
+  }
+  
+  /* Chat container */
+  .chat-container {
+    width: 80%;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center; /* Ensures the chat content stays centered */
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin-top:50px;
+  }
+  
+  /* Chat messages */
+  .chat-box {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    padding: 10px;
+    font-size: 18px;
+  }
+  
+  /* Message alignment */
+  .message {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    word-wrap: break-word;
+  }
+  
+  .bot-message {
+    align-self: flex-start;
+    background-color: #444;
+    color: #fff;
+    border-radius: 10px 10px 10px 0;
+    font-family: 'Helvetica', sans-serif;
+    font-size: 16px;
+    line-height: 1.6; /* Adjust line spacing */
+    letter-spacing: 0.5px; /* Adjust letter spacing */
+  }
+  
+  .user-message {
+    align-self: flex-end;
+    background-color: #0078ff;
+    color: #fff;
+    border-radius: 10px 10px 0 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+
+  }
+  
+  /* Input area */
+  .input-area {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background: #333;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .input-area input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #555;
+    color: white;
+  }
+  
+  .input-area button {
+    padding: 10px 15px;
+    background: #0078ff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .input-area button:hover {
+    background: #005bb5;
+  }
+  
