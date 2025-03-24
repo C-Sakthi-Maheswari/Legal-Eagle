@@ -55,15 +55,19 @@ function HistoricalManuscripts() {
   return (
     <div className="container">
       <div className="tamil-docu-page">
-      <h2>Historical Manuscripts Text Recognition</h2>
-      <div className="upload-box">
+      <h2 className="histo-docu">Historical Manuscripts Text Recognition</h2>
+      <div className="box-layout">
+        <div className="title">
+        <div className="circle"></div>
       <p>
         Upload an image of a historical manuscript or document to extract
         text.
       </p>
-      </div>
+        </div>
+     
+     
       
-      <div className='upload-section'>
+      <div className='file-uploading'>
       <input
         type="file"
         accept="image/*"
@@ -89,10 +93,11 @@ function HistoricalManuscripts() {
           {error}
         </div>
       )}
+      <h3 className="extracted-text-label">Recognized Text:</h3>
         <div className="extracted-text-container">
-          {recognizedText && (
+          {(
             <div style={{ marginTop: "20px" }}>
-              <h3 className="extracted-text-label">Recognized Text:</h3>
+              
               <div
               
               >
@@ -103,7 +108,9 @@ function HistoricalManuscripts() {
               </div>
             </div>
           )}
+        
         </div>
+          </div>
       </div>
     </div>
   );

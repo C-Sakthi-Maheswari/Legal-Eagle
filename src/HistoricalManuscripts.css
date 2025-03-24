@@ -1,0 +1,121 @@
+body {
+
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+ 
+  padding: 20px;
+  background-color: rgb(0,0,0,0.5);
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+   /* Centering */
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   width:90%;
+   
+}
+
+.histo-docu{
+  font-size: 40px;
+  margin-top:1px;
+}
+
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between circle and text */
+}
+
+.circle {
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 16px;
+}
+
+.title p {
+  margin: 0;
+  font-size: 16px;
+  color: white;
+}
+
+
+.file-uploading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Space between elements */
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent tray box */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.2);
+  width: 100%; /* Full width for centering */
+  text-align: center;
+  margin-top: 10px;
+  
+}
+
+.file-label {
+  font-size: 16px;
+  color: white;
+  text-decoration: underline;
+  cursor: pointer;
+  flex-grow: 1; /* Takes up remaining space */
+  text-align: center;
+}
+
+.file-input {
+  background-color: white;
+  color: black;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid white;
+  font-size: 14px;
+}
+
+.upload-btn {
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width:100px;
+  height:auto;
+  margin-right: 0px;
+  display: block;
+}
+
+.upload-btn:hover {
+  background-color: darkgoldenrod;
+}
+
+
+
+.extracted-text-container {
+  background-color: rgba(184, 134, 11, 0.8); /* Golden with 80% opacity */
+
+  padding: 15px;
+  border-radius: 8px;
+  color: white;
+  box-shadow: 0px 4px 10px rgba(255, 215, 0, 0.3);
+  margin-top: 10px;
+}
+
+.extracted-text-label {
+  margin-top: 40px;
+
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
