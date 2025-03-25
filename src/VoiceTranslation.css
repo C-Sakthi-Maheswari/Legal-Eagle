@@ -1,0 +1,119 @@
+/* LegalEagleUI.css */
+body {
+
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+   
+    padding: 20px;
+    background-color: rgb(0,0,0,0.5);
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+     /* Centering */
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     width:90%;
+     text-align: center; 
+  }
+  .Voice-reco{
+    font-size: 50px;
+    margin-top:1px;
+  }
+  
+  
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between circle and text */
+  }
+  
+  .circle {
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 16px;
+  }
+  
+  .title p {
+    margin: 0;
+    font-size: 16px;
+    color: white;
+  }
+ 
+  .language-container {
+    display: flex;
+    justify-content: center; /* Aligns items horizontally */
+    gap: 20px; /* Adds space between the dropdowns */
+    margin-top: 10px;
+  }
+  
+  .select-language {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f0f0; /* Light gray background */
+    padding: 15px;
+    border-radius: 8px;
+    width: 300px; /* Adjust width as needed */
+    margin: 10px auto;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .select-language label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  .select-language select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+  .select-language select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+
+  .goldenbox {
+    border: 3px solid gold; /* Golden border */
+    padding: 15px;
+    border-radius: 10px; /* Rounded corners */
+    background: linear-gradient(135deg, #fff8dc, #ffd700); /* Light gold gradient */
+    box-shadow: 0px 4px 8px rgba(255, 215, 0, 0.5); /* Soft golden glow */
+    text-align: center;
+    max-width: 500px; /* Limit width for a clean look */
+    margin: 20px auto; /* Center the box */
+  }
+  
+  .goldenbox h3 {
+    color: #b8860b; /* Dark gold for title */
+    font-weight: bold;
+  }
+  
+  .goldenbox p {
+    font-size: 18px;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  

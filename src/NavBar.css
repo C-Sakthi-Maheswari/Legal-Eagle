@@ -45,6 +45,10 @@
 .navbar-right {
   display: flex;
   gap: 15px; /* Adds proper spacing */
+  display: flex;
+  gap: 10px; /* Adjusted spacing */
+  padding-right: 40px; /* Prevents icons from overflowing */
+  flex-wrap: wrap; /* Ensures wrapping on smaller screens */
 }
 
 .nav-icon {

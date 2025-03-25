@@ -1,0 +1,132 @@
+/* General Container */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 300px;
+    background: none !important;
+    border: none;
+    box-shadow: none;
+}
+
+/* Introduction Box */
+.introduction-box {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Adjust the spacing */
+    margin-top: 100px;
+}
+
+.introduction-box h2 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #f8f8f7; /* Gold */
+    margin: 0;
+    white-space: nowrap; /* Prevents wrapping */
+    font-family: 'Cinzel Decorative', cursive;
+}
+.introduction-box .legal-eagle  {
+    font-family: 'Great Vibes', cursive;
+    font-size: 55px;
+    color: #caa40d;
+}
+
+/* Card Box Container - 2x2 Grid */
+.card-boxes {
+    margin-top: 200px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-template-rows: repeat(2, 1fr); /* 2 rows */
+    gap: 100px;
+    max-width: 650px;
+    margin-right: 250px;
+
+}
+
+/* Individual Card */
+.box {
+    width: 400px;
+    min-height: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+   
+}
+
+/* Hover Effect - Scale Up */
+.box:hover {
+    transform: scale(1.1); /* Slightly bigger */
+    box-shadow: 0 15px 25px rgba(202, 164, 13, 0.4); /* Golden glow */
+}
+
+/* Card Title */
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+/* Card Description */
+.card-description {
+    font-size: 16px;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+/* Button */
+.card-btn {
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background: #caa40d;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.card-btn:hover {
+    background: #b8930a;
+    transform: scale(1.1);
+}
+
+.box {
+    background: linear-gradient(135deg, #d39103 0%, rgba(255, 217, 0, 0) 100%);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    color: #333;
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+    animation: shine 0.5 ease;
+}
+
+/* Smooth shimmering effect */
+@keyframes shine {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+

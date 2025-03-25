@@ -115,12 +115,17 @@ function VoiceTranslation() {
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px", padding: "20px" }}>
-      <h2>Voice Recognition & Translation</h2>
+    <div  className="container" style={{ textAlign: "center", padding: "20px" }}>
+      <div className='Voice-trans'>
+      <h2 className="Voice-reco">Voice Recognition & Translation</h2>
+      <div className="title">
+          <div className="circle"></div>
       <p>Choose a language and click the button to start speaking.</p>
+          </div>
 
-      <div style={{ marginBottom: "20px" }}>
-        <label htmlFor="language-select" style={{ marginRight: "10px" }}>
+      <div className='language-container'>
+      <div className="select-language" >
+        <label htmlFor="language-select">
           Recognition Language:
         </label>
         <select
@@ -142,8 +147,9 @@ function VoiceTranslation() {
         </select>
       </div>
 
-      <div style={{ marginBottom: "20px" }}>
-        <label htmlFor="target-language-select" style={{ marginRight: "10px" }}>
+     
+      <div className="select-language" >
+        <label htmlFor="target-language-select" >
           Translation Language:
         </label>
         <select
@@ -164,6 +170,8 @@ function VoiceTranslation() {
           ))}
         </select>
       </div>
+      </div>
+      
 
       <button
         onClick={startRecognition}
@@ -182,7 +190,7 @@ function VoiceTranslation() {
       </button>
 
       {text && (
-        <div style={{ marginTop: "20px" }}>
+        <div className="goldenbox" style={{ marginTop: "20px" }}>
           <h3>Recognized Text:</h3>
           <div
             style={{
@@ -198,7 +206,7 @@ function VoiceTranslation() {
       )}
 
       {translatedText && (
-        <div style={{ marginTop: "20px" }}>
+        <div className="goldenbox" style={{ marginTop: "20px" }}>
           <h3>Translated Text:</h3>
           <div
             style={{
@@ -212,6 +220,7 @@ function VoiceTranslation() {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }
