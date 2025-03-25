@@ -2,13 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link
 import { Home, FileText, Mic, Bot, Languages } from 'lucide-react';
 import './NavBar.css';
+import logo from './images/bg.jpeg'; 
 
 const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-left">
         <div className="logo">
-          <img src="./images/eagleLogo.png" alt="Logo" className="logo-img" /> 
+          <img src={logo} alt="Logo" className="logo-img" /> 
         </div>
         <h1 className="logo-text">Legal Eagle</h1>
       </div>
