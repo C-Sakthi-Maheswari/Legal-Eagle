@@ -55,7 +55,7 @@ function HistoricalManuscripts() {
   return (
     <div className="container">
       <div className="tamil-docu-page">
-      <h2 className="histo-docu">Historical Manuscripts Text Recognition</h2>
+      <h2 className="histo-docu" style={{fontFamily:"Playfair Display"}}>Historical Manuscripts Text Recognition</h2>
       <div className="box-layout">
         <div className="title">
         <div className="circle"></div>
@@ -78,7 +78,7 @@ function HistoricalManuscripts() {
       <button
         onClick={handleRecognizeText}
         className='upload-btn'
-        
+        style={{width:"100px"}}
         disabled={isProcessing}
       >
         {isProcessing ? "Recognizing Text..." : "Recognize Text"}

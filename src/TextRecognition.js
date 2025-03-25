@@ -102,11 +102,11 @@ const TextRecognition = () => {
   return (
     <div className="container">
     <div className="text-recognition-page">
-      <h2 className="text-reco">Text Recognition</h2>
+      <h2 className="text-reco" style={{fontFamily:"Playfair Display"}}>Text Recognition</h2>
       <div className="box-layout">
         <div className="title">
           <div className="circle">1</div>
-          <p>upload the file the needs to be simplified</p>
+          <p>Upload the file the needs to be simplified</p>
         </div>
         <div className="file-uploading">
         
@@ -146,7 +146,7 @@ const TextRecognition = () => {
       <div className="box-layout" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <div className="title" style={{marginTop:"20px"}}>
           <div className="circle">2</div>
-          <p>select a language to translate into</p>
+          <p>Select a language to translate into</p>
          
           
         </div>

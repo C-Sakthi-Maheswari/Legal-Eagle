@@ -117,7 +117,7 @@ function VoiceTranslation() {
   return (
     <div  className="container" style={{ textAlign: "center", padding: "20px" }}>
       <div className='Voice-trans'>
-      <h2 className="Voice-reco">Voice Recognition & Translation</h2>
+      <h2 className="Voice-reco" style={{fontFamily:"Playfair Display"}}>Voice Recognition & Translation</h2>
       <div className="title">
           <div className="circle"></div>
       <p>Choose a language and click the button to start speaking.</p>

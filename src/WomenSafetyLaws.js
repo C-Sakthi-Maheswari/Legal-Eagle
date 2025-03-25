@@ -34,7 +34,7 @@ const WomenSafetyLaws = () => {
 
   return (
     <div className="chat-container">
-    <h1>AI Chat Assistant</h1>
+    <h1 style={{fontFamily:"Playfair Display"}}>AI Chat Assistant</h1>
 
     {/* Category Selector */}
     <div className="category-selector" style={{marginBottom:"20px",marginTop:"10px"}}>
