@@ -1,36 +1,29 @@
- import './VoiceTranslation.css';
-
+import './VoiceTranslation.css';
 import React, { useState } from "react";
 
 function VoiceTranslation() {
   const [text, setText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
   const [isListening, setIsListening] = useState(false);
-  const [language, setLanguage] = useState("hi-IN"); // Default to Hindi
-  const [targetLanguage, setTargetLanguage] = useState("es"); // Default to Spanish
+  const [language, setLanguage] = useState("ta"); // Default Tamil
+  const [targetLanguage, setTargetLanguage] = useState("en"); // Default English
+  const [loading, setLoading] = useState(false);
 
+  // Supported languages (matching Helsinki-NLP model codes)
   const recognitionLanguages = [
-    { code: "hi-IN", label: "Hindi" },
-    { code: "ta-IN", label: "Tamil" },
-    { code: "te-IN", label: "Telugu" },
-    { code: "ml-IN", label: "Malayalam" },
-    { code: "bn-IN", label: "Bengali" },
-    { code: "mr-IN", label: "Marathi" },
-    { code: "gu-IN", label: "Gujarati" },
-    { code: "pa-IN", label: "Punjabi" },
-    { code: "ur-IN", label: "Urdu" },
-    { code: "kn-IN", label: "Kannada" },
-    { code: "or-IN", label: "Odia" },
-    { code: "as-IN", label: "Assamese" },
+    { code: "hi", label: "Hindi" },
+    { code: "ta", label: "Tamil" },
+    { code: "en", label: "English" },
+    { code: "fr", label: "French" },
+    { code: "es", label: "Spanish" }
   ];
 
   const translationLanguages = [
-    { code: "es", label: "Spanish" },
-    { code: "fr", label: "French" },
-    { code: "de", label: "German" },
-    { code: "zh", label: "Chinese" },
-    { code: "hi", label: "Hindi" },
     { code: "en", label: "English" },
+    { code: "fr", label: "French" },
+    { code: "es", label: "Spanish" },
+    { code: "ta", label: "Tamil" },
+    { code: "hi", label: "Hindi" }
   ];
 
   const startRecognition = () => {
@@ -39,187 +32,110 @@ function VoiceTranslation() {
       return;
     }
 
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
 
-    recognition.lang = language; // Set recognition language
+    recognition.lang = language;
     recognition.interimResults = false;
     recognition.continuous = false;
 
-    recognition.onstart = () => {
-      setIsListening(true);
-    };
-
-    recognition.onend = () => {
-      setIsListening(false);
-    };
-
+    recognition.onstart = () => setIsListening(true);
+    recognition.onend = () => setIsListening(false);
     recognition.onerror = (event) => {
-      console.error("Error occurred during recognition: ", event.error);
-      alert("Voice recognition failed. Please try again.");
+      console.error("Recognition Error: ", event.error);
+      alert("Voice recognition failed.");
       setIsListening(false);
     };
 
     recognition.onresult = (event) => {
       const transcript = event.results[0][0].transcript;
       setText(transcript);
-      translateText(transcript); // Translate the text
+      translateText(transcript);
     };
 
     recognition.start();
   };
 
-  const translateText = (inputText) => {
-    const translations = {
-      es: `Translated to Spanish: ${inputText}`,
-      fr: `Translated to French: ${inputText}`,
-      de: `Translated to German: ${inputText}`,
-      zh: `Translated to Chinese: ${inputText}`,
-      hi: `Translated to Hindi: ${inputText}`,
-      en: `Translated to English: ${inputText}`,
-    };
-    setTranslatedText(translations[targetLanguage] || "Translation not available.");
-    
-    // Read aloud the translated text
-    readAloud(translations[targetLanguage] || "Translation not available.");
+  const translateText = async (inputText) => {
+    setLoading(true);
+    try {
+      const response = await fetch("http://127.0.0.1:5000/translate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          text: inputText,
+          source_language: language,  // Now properly handled by backend
+          target_language: targetLanguage
+        }),
+      });
+
+      const data = await response.json();
+      if (data.translated_text) {
+        setTranslatedText(data.translated_text);
+        readAloud(data.translated_text);
+      } else {
+        setTranslatedText("Translation failed.");
+      }
+    } catch (error) {
+      console.error("Translation error:", error);
+      setTranslatedText("Error in translation.");
+    }
+    setLoading(false);
   };
 
   const readAloud = (textToRead) => {
     const utterance = new SpeechSynthesisUtterance(textToRead);
-    // Set the language for Speech Synthesis (match the translation language)
-    if (targetLanguage === "es") {
-      utterance.lang = "es-ES"; // Spanish
-    } else if (targetLanguage === "fr") {
-      utterance.lang = "fr-FR"; // French
-    } else if (targetLanguage === "de") {
-      utterance.lang = "de-DE"; // German
-    } else if (targetLanguage === "zh") {
-      utterance.lang = "zh-CN"; // Chinese
-    } else if (targetLanguage === "hi") {
-      utterance.lang = "hi-IN"; // Hindi
-    } else {
-      utterance.lang = "en-US"; // Default to English
-    }
-
-    // Speak the translated text
+    utterance.lang = targetLanguage;
     window.speechSynthesis.speak(utterance);
   };
 
-  const handleLanguageChange = (e) => {
-    setLanguage(e.target.value);
-  };
-
-  const handleTargetLanguageChange = (e) => {
-    setTargetLanguage(e.target.value);
-  };
-
   return (
-    <div  className="container" style={{ textAlign: "center", padding: "20px" }}>
+    <div className="container" style={{ textAlign: "center", padding: "20px" }}>
       <div className='Voice-trans'>
-      <h2 className="Voice-reco" style={{fontFamily:"Playfair Display"}}>Voice Recognition & Translation</h2>
-      <div className="title">
-          <div className="circle"></div>
-      <p>Choose a language and click the button to start speaking.</p>
+        <h2 className="Voice-reco">Voice Recognition & Translation</h2>
+        <div className="title">
+          <p>Choose a language and start speaking.</p>
+        </div>
+
+        <div className='language-container'>
+          <div className="select-language">
+            <label>Recognition Language:</label>
+            <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+              {recognitionLanguages.map((lang) => (
+                <option key={lang.code} value={lang.code}>{lang.label}</option>
+              ))}
+            </select>
           </div>
 
-      <div className='language-container'>
-      <div className="select-language" >
-        <label htmlFor="language-select">
-          Recognition Language:
-        </label>
-        <select
-          id="language-select"
-          value={language}
-          onChange={handleLanguageChange}
-          style={{
-            padding: "8px",
-            fontSize: "16px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-          }}
-        >
-          {recognitionLanguages.map((lang) => (
-            <option key={lang.code} value={lang.code}>
-              {lang.label}
-            </option>
-          ))}
-        </select>
-      </div>
-
-     
-      <div className="select-language" >
-        <label htmlFor="target-language-select" >
-          Translation Language:
-        </label>
-        <select
-          id="target-language-select"
-          value={targetLanguage}
-          onChange={handleTargetLanguageChange}
-          style={{
-            padding: "8px",
-            fontSize: "16px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-          }}
-        >
-          {translationLanguages.map((lang) => (
-            <option key={lang.code} value={lang.code}>
-              {lang.label}
-            </option>
-          ))}
-        </select>
-      </div>
-      </div>
-      
-
-      <button
-        onClick={startRecognition}
-        style={{
-          padding: "10px 20px",
-          fontSize: "16px",
-          borderRadius: "5px",
-          backgroundColor: isListening ? "#007bff" : "#28a745",
-          color: "white",
-          border: "none",
-          cursor: "pointer",
-        }}
-        disabled={isListening}
-      >
-        {isListening ? "Listening..." : "Start Listening"}
-      </button>
-
-      {text && (
-        <div className="goldenbox" style={{ marginTop: "20px" }}>
-          <h3>Recognized Text:</h3>
-          <div
-            style={{
-              border: "1px solid #ccc",
-              padding: "10px",
-              borderRadius: "5px",
-              backgroundColor: "#f9f9f9",
-            }}
-          >
-            <p style={{ fontSize: "18px", color: "#333" }}>{text}</p>
+          <div className="select-language">
+            <label>Translation Language:</label>
+            <select value={targetLanguage} onChange={(e) => setTargetLanguage(e.target.value)}>
+              {translationLanguages.map((lang) => (
+                <option key={lang.code} value={lang.code}>{lang.label}</option>
+              ))}
+            </select>
           </div>
         </div>
-      )}
 
-      {translatedText && (
-        <div className="goldenbox" style={{ marginTop: "20px" }}>
-          <h3>Translated Text:</h3>
-          <div
-            style={{
-              border: "1px solid #ccc",
-              padding: "10px",
-              borderRadius: "5px",
-              backgroundColor: "#e6f7ff",
-            }}
-          >
-            <p style={{ fontSize: "18px", color: "#333" }}>{translatedText}</p>
+        <button onClick={startRecognition} disabled={isListening}>
+          {isListening ? "Listening..." : "Start Listening"}
+        </button>
+
+        {loading && <p>Translating...</p>}
+
+        {text && (
+          <div className="goldenbox">
+            <h3>Recognized Text:</h3>
+            <p>{text}</p>
           </div>
-        </div>
-      )}
+        )}
+
+        {translatedText && (
+          <div className="goldenbox">
+            <h3>Translated Text:</h3>
+            <p>{translatedText}</p>
+          </div>
+        )}
       </div>
     </div>
   );
